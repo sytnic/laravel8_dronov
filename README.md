@@ -1,4 +1,4 @@
-# Project
+# Template project
 
 - Laravel 8.83.27 
 - PHP 7.4.32
@@ -32,7 +32,7 @@
 
 ## Запуск Docker & Laravel
 
-> !! Подготовить env
+> !! Подготовить env, ориентируясь на ".env copy" и docker-compose.yml 
 
 Запуск контейнеров
 
@@ -42,19 +42,23 @@
 Вход в контейнер
 
     cd /d E:\
-    cd develop_train\dockerphp\medlite
+    cd E:\Projects_greycrud\template_docker
     dir
     docker ps
     docker exec -it container_id bash 
     (не работает в GitBash, работает в cmd)
 
+    // установка nano, если необходима
     # apt-get install nano
 
+    // иногда может понадобиться переписывание прав на файлы
     chown -R www-data:www-data *
 
 В терминале в папке с проектом
 
     ls -la
+    composer -v
+    // установка composer, если необходима
     composer install
 
 Установка ключа для запуска Laravel
