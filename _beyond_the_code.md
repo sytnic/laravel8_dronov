@@ -7,5 +7,10 @@
     php artisan migrate
 
 
+## 1.8. Модели
+
+    php artisan make:model Bb
+
+
 
 
