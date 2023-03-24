@@ -17,7 +17,7 @@ class CreateBbsTable extends Migration
             $table->id();
             $table->string('title', 50);
             $table->text('content');
-            $table->float('price');
+            $table->float('price', 10, 2);
             $table->timestamps();
 
             $table->index('created_at');
