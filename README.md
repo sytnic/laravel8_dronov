@@ -1,4 +1,4 @@
-# Template project
+# Study project
 
 - Laravel 8.83.27 
 - PHP 7.4.32
@@ -58,7 +58,9 @@
 
     ls -la
     composer -v
-    // установка composer, если необходима
+    // установка composer, если необходимо
+
+    // установка зависимостей Laravel
     composer install
 
 Установка ключа для запуска Laravel

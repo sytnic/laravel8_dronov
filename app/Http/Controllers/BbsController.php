@@ -23,9 +23,10 @@ class BbsController extends Controller
         return response($s)->header('Content-Type', 'text/plain');
     }
 
-    public function detail($bb) {
+    public function detail(Bb $bb) {
 
-        $bb = Bb::find($bb);
+        // $bb = Bb::find($bb);
+        
         $s = $bb->title . "\r\n\r\n";
         $s.= $bb->content . "\r\n";
         $s.= $bb->price . " руб.\r\n";
