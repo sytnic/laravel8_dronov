@@ -16,7 +16,7 @@ services:
     build:
         context: .
         dockerfile: docker/Dockerfile
-    image: 'vitrina'
+    image: 'bboard'
     ports:
         - 8080:80
     volumes:
