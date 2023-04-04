@@ -74,4 +74,62 @@
     $bb = Bb::where('title', 'Снег')->first();
     $bb->delete();
 
-    
+## 2.1 Откат миграции и создание связей между таблицами
+
+Удаляет цепочку миграции и таблицу bbs. Файл миграции остаётся.
+
+    php artisan migrate:rollback --step=1
+
+После внесения изменений в файл миграции, команда
+
+    php artisan migrate
+
+Работа с тинкер.
+
+Создание пользователя в таблице user.
+
+    > use Illuminate\Support\Facades\Hash;
+    > use App\Models\User;
+    > $user = User::create(['name' => 'admin', 'email' => 'admin@bboard.ru', 'password' => Hash::make('admin')]);
+
+User::create сразу сохраняет данные в БД в users.
+
+Новая запись в таблицу bbs.
+
+    > use App\Models\Bb; 
+    > $bb = new Bb(); 
+    > $bb->title = 'Пылесос'; 
+    > $bb->content = 'Старый, ржавый, без шланга'; 
+    > $bb->price = 500; 
+    > $user->bbs()->save($bb);
+
+Через ранее заданный объект $user будет создана и сохранена в БД связь с текущим значением user_id.
+
+Создание связи и сразу создание записи в таблицу bbs.
+
+    $user->bbs()->create(['title' => 'Грузовик', 'content' => 'Грузоподъемность - 5 т', 'price' => 10000000]); 
+
+Добавим третье объявление — третьим способом: 
+
+    > $bb = new Bb(['title' => 'Шкаф', 
+    .   'content' => 'Совсем новый, полированный, двухстворчатый', 
+    .   'price' => 1000]); 
+
+Так создаётся объект bb (в БД он пока не добавляется), который теперь можно связать с юзер и сохранить так.
+
+    > $bb->user()->associate($user); 
+    > $bb->save(); 
+
+Вывод данных в консоль
+
+    foreach (Bb::all() as $bb) { 
+      $user = $bb->user;
+      echo $bb->title, ' | ', $user->name, ' | ', $bb->price, "\r\n"; 
+    }
+
+Вывод всех объявлений, оставленных пользователем admin
+
+    $user = User::where('name' ,'admin')->first();
+    foreach ($user->bbs as $bb) { echo $bb->title, ' '; }
+
+Свойство bbs пользователя хранит список связанных объявлений.
